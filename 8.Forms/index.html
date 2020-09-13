@@ -1,136 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-      <!-- 1. React Algorithm -->
-      <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-      <!-- 2. React Dom Manipulation-->
-      <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-      <!-- 3. Transpile JSX -> JS -->
-      <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!-- 1. React Algorithm -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <!-- 2. React Dom Manipulation-->
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <!-- 3. Transpile JSX -> JS -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 </head>
+
 <body>
     <div id="root"></div>
     <script type="text/babel">
         //Controlled component => component's state controls the internal state of the form elements
-       // input text Form Element
-      class SimpleInputText extends React.Component{
-          constructor(props){
-              super(props);
-              this.state = {
-                  inputVal:""
-              }
-              this.handleSubmitForm = this.handleSubmitForm.bind(this);
-              this.handleChangeInput = this.handleChangeInput.bind(this);
-          }
-          handleChangeInput(event){
-              this.setState({
-                  inputVal:event.target.value
-              });
-          }
-          handleSubmitForm(event){
-              event.preventDefault();
-              alert("Form Submitted with: "+this.state.inputVal);
-          }
-          render()
-          {
-              return(
-                  <div>
-                  <form onSubmit={this.handleSubmitForm}>
-                  <label>
-                   Type: 
-                  <input type="text" value={this.state.inputVal} onChange={this.handleChangeInput}/>
-                  </label>
-                  <button>Submit</button>
-                  </form>
-                  </div>
-              )
-          }
-      }
-      // text Area
-      class EssayWriter extends React.Component{
-          constructor(props){
-              super(props);
-              this.state = {
-                  inputVal:"Please Write ur thoughts about React in 200 words.."
-              }
-              this.handleSubmitForm = this.handleSubmitForm.bind(this);
-              this.handleChangeTextArea = this.handleChangeTextArea.bind(this);
-          }
-          handleChangeTextArea(event){
-            this.setState({
-                inputVal:event.target.value
-            });
-          }
-          handleSubmitForm(event){
-              event.preventDefault();
-              alert(this.state.inputVal);
-          }
-          render(){
-              return(
-                  <div>
-                  <form onSubmit={this.handleSubmitForm}>
-                    <label>
-                        Type:
+        // input text Form Element
+        class SimpleInputText extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    inputVal: ""
+                }
+                this.handleSubmitForm = this.handleSubmitForm.bind(this);
+                this.handleChangeInput = this.handleChangeInput.bind(this);
+            }
+            handleChangeInput(event) {
+                this.setState({
+                    inputVal: event.target.value
+                });
+            }
+            handleSubmitForm(event) {
+                event.preventDefault();
+                alert("Form Submitted with: " + this.state.inputVal);
+            }
+            render() {
+                return (
+                    <div>
+                        <form onSubmit={this.handleSubmitForm}>
+                            <label>
+                                Type:
+                  <input type="text" value={this.state.inputVal} onChange={this.handleChangeInput} />
+                            </label>
+                            <button>Submit</button>
+                        </form>
+                    </div>
+                )
+            }
+        }
+        // text Area
+        class EssayWriter extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    inputVal: "Please Write ur thoughts about React in 200 words.."
+                }
+                this.handleSubmitForm = this.handleSubmitForm.bind(this);
+                this.handleChangeTextArea = this.handleChangeTextArea.bind(this);
+            }
+            handleChangeTextArea(event) {
+                this.setState({
+                    inputVal: event.target.value
+                });
+            }
+            handleSubmitForm(event) {
+                event.preventDefault();
+                alert(this.state.inputVal);
+            }
+            render() {
+                return (
+                    <div>
+                        <form onSubmit={this.handleSubmitForm}>
+                            <label>
+                                Type:
                     </label>
-                    <br/>
-                    <br/>
-                    <textarea value={this.state.inputVal} onChange={this.handleChangeTextArea}/>
-                    <button>Submit</button>
-                  </form>
-                  </div>
-              );
-          }
-      }
-      //select
-      class ChooseItem extends React.Component{
-          constructor(props){
-              super(props);
-              this.state = {
-                  inputVal : "coconut"
-              }
-              this.handleChangeSelect = this.handleChangeSelect.bind(this);
-              this.handleSubmitForm = this.handleSubmitForm.bind(this);
-          }
-          handleChangeSelect(event){
-              this.setState({
-                  inputVal:event.target.value
-              });
-          }
-          handleSubmitForm(event){
-              event.preventDefault();
-              alert("selected : "+this.state.inputVal);
-          }
-          render(){
-              return(
-                  <div>
-                    <form onSubmit={this.handleSubmitForm}>
-                        <select value={this.state.inputVal} onChange={this.handleChangeSelect}>
-                        <option value="strawberry">Strawberry</option>
-                        <option value="coconut">Coconut</option>
-                        <option value="chocolate">Chocolate</option>
-                        <option value="mango">Mango</option>
-                        </select>
-                        <button>Submit</button>
-                    </form>
-                  </div>
-              )
-          }
-      }
-      function Parent(props){
-          return(
-              <div>
-              <SimpleInputText/>
-              <br/>
-              <EssayWriter/>
-              <br/>
-              <ChooseItem/>
-              </div>
-          );
-      }
-     ReactDOM.render(<Parent/>,document.getElementById('root'));
+                            <br />
+                            <br />
+                            <textarea value={this.state.inputVal} onChange={this.handleChangeTextArea} />
+                            <button>Submit</button>
+                        </form>
+                    </div>
+                );
+            }
+        }
+        //select
+        class ChooseItem extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    inputVal: "coconut"
+                }
+                this.handleChangeSelect = this.handleChangeSelect.bind(this);
+                this.handleSubmitForm = this.handleSubmitForm.bind(this);
+            }
+            handleChangeSelect(event) {
+                this.setState({
+                    inputVal: event.target.value
+                });
+            }
+            handleSubmitForm(event) {
+                event.preventDefault();
+                alert("selected : " + this.state.inputVal);
+            }
+            render() {
+                return (
+                    <div>
+                        <form onSubmit={this.handleSubmitForm}>
+                            <select value={this.state.inputVal} onChange={this.handleChangeSelect}>
+                                <option value="strawberry">Strawberry</option>
+                                <option value="coconut">Coconut</option>
+                                <option value="chocolate">Chocolate</option>
+                                <option value="mango">Mango</option>
+                            </select>
+                            <button>Submit</button>
+                        </form>
+                    </div>
+                )
+            }
+        }
+        //input file type is an uncontrolled component
+        //handling multiple inputs 
+
+        class MultipleInputs extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    isGoing: true,
+                    numberOfGuests: 2
+                };
+                this.handleChangeElement = this.handleChangeElement.bind(this);
+                this.handleSubmitForm = this.handleSubmitForm.bind(this);
+            }
+            handleChangeElement(event) {
+                let target = event.target;
+                let type = target.type;
+                let inputValue = (type === "checkbox") ? target.checked : target.value;
+                let name = target.name;
+                this.setState({
+                    [name]: inputValue
+                });
+            }
+            handleSubmitForm(event) {
+                event.preventDefault();
+                alert("IsGoing: " + this.state.isGoing + " And Number of Guests: " + this.state.numberOfGuests);
+            }
+            render() {
+                return (
+                    <div>
+                        <form onSubmit={this.handleSubmitForm}>
+                            <input type="checkbox" checked={this.state.isGoing} name="isGoing" onChange={this.handleChangeElement} />
+                            <input type="number" value={this.state.numberOfGuests} name="numberOfGuests" onChange={this.handleChangeElement} />
+                            <button>Submit</button>
+                        </form>
+                    </div>
+                )
+            }
+        }
+
+        // if you specify the value attribute of the controlled component explicitly
+        // with string rather than state it becomes uneditable and if you initialize it with {null/undefined} it
+        // becomes editable again
+
+        // Example
+        // ReactDOM.render(<input value="hi" />, mountNode);
+
+        // setTimeout(function () {
+        //     ReactDOM.render(<input value={null} />, mountNode);
+        // }, 1000);
+        
+        //other approaches to implement forms:
+        // 1. Uncontrolled Components
+        // 2. Formik
+
+        
+        function Parent(props) {
+            return (
+                <div>
+                    <SimpleInputText />
+                    <br />
+                    <EssayWriter />
+                    <br />
+                    <ChooseItem />
+                    <br />
+                    <MultipleInputs />
+                </div>
+            );
+        }
+
+        ReactDOM.render(<Parent />, document.getElementById('root'));
     </script>
 </body>
+
 </html>
