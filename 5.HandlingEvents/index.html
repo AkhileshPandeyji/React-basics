@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 1. React Algorithm -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <!-- 2. React Dom Manipulation-->
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <!-- 3. Transpile JSX -> JS -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        //Major differences between Native DOM Event handling and React DOM Event handling.
+        //1.the event Handler attributes and functions are camelCased
+        //2.the event handler function is a functional expression in {} rather than string
+        //3.you cannot return false while dealing with default reload behaviour of the a links
+        //  you have to explicitly call the e.preventDefault() method using synthetic event class 
+        //  passed to the event handler function by the onClick attribute
+
+        //4.you can bind this using bind,public class fields or even arrow function callbacks
+        // this => is available only in constructor,render(),inside class
+        // onClick = {this.handleClick} this == undefined is passed to handleclick as its not called().
+        
+        //5.Passing arguments to the event handler functions:
+        // a) onClick={this.handleclick.bind(this,id)}
+        // b) onClick={(e)=>{this.handleClick(id,e)}}
+
+
+        //lets Create a Counter using Event handling
+
+        class Counter extends React.Component{
+            constructor(props){
+                super(props);
+                this.state = {val:0};
+                // this.increment.bind(this);
+                // this.decrement.bind(this);
+            }
+            increment = (v,e)=>{
+                e.preventDefault();
+                console.log(v+" pressed");
+                this.setState(function(state,props){
+                    return {
+                        val:state.val+1
+                    }
+                });
+            } 
+            decrement = (v,e)=>{
+                e.preventDefault();
+                console.log(v+" pressed");
+                this.setState((state,props)=>{
+                    return {
+                        val:state.val-1
+                    }
+                });
+            } 
+            handleClick = (e)=>{
+                e.preventDefault();
+                console.log("a link was clicked");
+            }
+            render(){
+                //passing arguments to the event handler functions
+                //using bind method func.bind(this,arg1,arg2) => func = (arg1,arg2,e)=>{}
+                return (
+                    <div>
+                    <p>{this.state.val}</p>
+                    <button onClick={this.increment.bind(this,"+")}>+</button>
+                    <button onClick={(e)=>{this.decrement("-",e)}}>-</button>
+                    <br/>
+                    <a href="#" onClick={(e)=>{this.handleClick(e)}}>A Tag</a>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Counter/>,document.getElementById('root'));
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 1. React Algorithm -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <!-- 2. React Dom Manipulation-->
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <!-- 3. Transpile JSX -> JS -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class Clock extends React.Component{
+            constructor(props){
+                super(props);
+                this.state = {date: new Date()};
+            }
+            //This method is called when this React component is first rendered on DOM
+            //Life cycle method to remove unwanted resources when the components get destroyed
+            //Lifecycle Method - mount
+            componentDidMount(){
+                this.timerID = setInterval(()=>this.tick(),1000);
+            }
+            //This method is called when this React component is removed from the DOM
+            //LifeCycle Method - unmount
+            componentWillUnmount(){
+                clearInterval(this.timerID);
+            }
+            tick(){
+                //This method changes the initial state of this React Component and 
+                //notifies render() about the change and rerender the DOM
+                //1.Do not change the state directly
+                //2.State change may be asynchronous - use this.setState()
+                //3.React shallow merges the multiple state changes for multiple state variables
+                //this.state = {posts:[],messages:[]} this.setState({post:[]}) does not change messages:[] 
+                this.setState({
+                    date: new Date()
+                });
+            }
+            render(){
+                return(
+                    <React.Fragment>
+                    <h1>Today's Time:</h1>
+                    <h1>{this.state.date.toLocaleTimeString()}</h1>
+                    </React.Fragment>
+                )
+            }
+        }     
+        
+        // ReactDOM.render(<Clock/>,document.getElementById('root'));
+        //Clock is full owner of its state and props and can send its data to its childrens
+        //parents/children does not know whether its children/parents are stateful/stateless
+        //data flows down
+        function ClockParent(props){
+            return (
+                <React.Fragment>
+                <Clock/>
+                <Clock/>
+                <Clock/>
+                </React.Fragment>
+            );            
+        }
+        ReactDOM.render(<ClockParent/>,document.getElementById('root'));
+
+        //Each clock element is an independent clock React component which manages its own props and states
+
+    </script>
+</body>
+</html>

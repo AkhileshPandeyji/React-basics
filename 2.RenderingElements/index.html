@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+      <!-- 1. React Algorithm -->
+      <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+      <!-- 2. React Dom Manipulation-->
+      <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+      <!-- 3. Transpile JSX -> JS -->
+      <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        //React Elements they are basic building blocks of react app and their composition -> component
+        //they are plain objects and are less costly than native DOM objects and are immutable-> attributes 
+        //and children cannot be changed once created.
+
+        //updating React elements by rendering and creating new React Element
+        function tick(){
+            const element = <div><h1>Hello World</h1><h1>Date : { new Date().toLocaleTimeString() } </h1></div>;
+            ReactDOM.render(element,document.getElementById('root'));
+        }
+        setInterval(tick,1000);  
+        //inspect
+
+        //React only changes the necessary elements that have a change by comparing the elements (their attributes
+        //,children) in its current rendered state to its previous rendered state.
+    </script>
+</body>
+</html>

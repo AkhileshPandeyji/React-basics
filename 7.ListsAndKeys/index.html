@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+      <!-- 1. React Algorithm -->
+      <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+      <!-- 2. React Dom Manipulation-->
+      <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+      <!-- 3. Transpile JSX -> JS -->
+      <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        //How javascript transforms the array/list
+        let arr = [1,2,3,4,5];
+        let doubleArr = arr.map((number)=>number*2);
+        console.log(doubleArr);
+        //list/collection of React Elements
+        //basic
+        let list = [1,2,3,4,5];
+        // let listElements = list.map((listVal)=>{
+        //     return <li>{listVal}</li>;
+        // });
+        // //Error:Each list element should have a unique Key
+        // ReactDOM.render(<ul>{listElements}</ul>,document.getElementById('root'));
+
+        function ListNumbers(props){
+            let numbers = props.numbers;
+            let listElements2 = numbers.map((number,index)=>{
+                //Error Removed
+                return <li key={number+""+index}>{number}</li>
+            });
+            return(
+                <ul>
+                    {listElements2}
+                </ul>
+            )
+        }
+        ReactDOM.render(<ListNumbers numbers={list}></ListNumbers>,document.getElementById('root'));
+
+        // keys are necessary for the react to uniquely identify the siblings inside the 
+        // collection of elements so that react can realize which sibling was added,updated,removed
+        
+        //keys -> stable ids from the data inside the array
+        //keys -> index values
+
+        //Keys should be unique only in the same array not in different arrays 
+        //siblings need to be different from one another in the same array rather than different array
+
+        //Keys should be used inside the component rather than the react element if element is extracted in
+        // a component
+
+        //we can also embedd map inside the JSX inline
+
+        //Lets see the following example
+        let posts = [{
+            post_id:1,
+            post_title:"Learning React is fun.",
+            post_content:"keys are necessary for the react to uniquely identify the siblings inside the collection."
+        },{
+            post_id:2,
+            post_title:"Learning Veu is Easy.",
+            post_content:"we can also embedd map inside the JSX inline."
+        }];
+
+        class Blog extends React.Component{
+            constructor(props){
+                super(props);
+            }
+            render(){
+                const sideBar = (
+                    <ul>
+                    {   this.props.posts.map((post)=>{
+                            return (
+                                <li key={post.post_id}>{post.post_title}</li>
+                            );
+                        })
+                    }
+                    </ul>
+                );
+                const content = (
+                    <div>
+                    {   this.props.posts.map((post)=>{
+                            return (
+                                <div key={post.post_id}>
+                                    <h2>{post.post_title}</h2>
+                                    <h4>{post.post_content}</h4>
+                                </div>
+                            );
+                        })
+                    }
+                    </div>
+                );
+                return(
+                    <div>
+                    {sideBar}
+                    <hr/>
+                    {content}
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<Blog posts={posts}/>,document.getElementById('root'));
+
+    </script>
+</body>
+</html>
